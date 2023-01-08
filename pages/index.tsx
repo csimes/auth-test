@@ -1,138 +1,271 @@
-import type { NextPage } from "next";
+import { NextPage } from "next";
 import Head from "next/head";
-import { LockClosedIcon } from "@heroicons/react/20/solid";
+import { useState } from "react";
+import { Dialog } from "@headlessui/react";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+
+const navigation = [
+  { name: "Product", href: "#" },
+  { name: "Features", href: "#" },
+  { name: "Marketplace", href: "#" },
+  { name: "Company", href: "#" },
+];
 
 const Home: NextPage = () => {
-  const signInWithEmail = async () => {
-    const { data, error } = await supabase.auth.signInWithPassword({
-      email: "example@email.com",
-      password: "example-password",
-    });
-  };
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
     <div>
       <Head>
-        <title>Supabase Auth App</title>
+        <title>Auth Test | Home</title>
         <link
           rel="icon"
           href="/favicon.ico"
         />
       </Head>
-      <>
-        <div className="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-          <div className="w-full max-w-md space-y-8">
-            <div>
-              <img
-                className="mx-auto h-12 w-auto"
-                src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-                alt="Your Company"
-              />
-              <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
-                Sign in to your account
-              </h2>
-              <p className="mt-2 text-center text-sm text-gray-600">
-                Or{" "}
+      <div className="isolate bg-white">
+        <div className="absolute inset-x-0 top-[-10rem] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[-20rem]">
+          <svg
+            className="relative left-[calc(50%-11rem)] -z-10 h-[21.1875rem] max-w-none -translate-x-1/2 rotate-[30deg] sm:left-[calc(50%-30rem)] sm:h-[42.375rem]"
+            viewBox="0 0 1155 678"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              fill="url(#45de2b6b-92d5-4d68-a6a0-9b9b2abad533)"
+              fillOpacity=".3"
+              d="M317.219 518.975L203.852 678 0 438.341l317.219 80.634 204.172-286.402c1.307 132.337 45.083 346.658 209.733 145.248C936.936 126.058 882.053-94.234 1031.02 41.331c119.18 108.451 130.68 295.337 121.53 375.223L855 299l21.173 362.054-558.954-142.079z"
+            />
+            <defs>
+              <linearGradient
+                id="45de2b6b-92d5-4d68-a6a0-9b9b2abad533"
+                x1="1155.49"
+                x2="-78.208"
+                y1=".177"
+                y2="474.645"
+                gradientUnits="userSpaceOnUse"
+              >
+                <stop stopColor="#9089FC" />
+                <stop
+                  offset={1}
+                  stopColor="#FF80B5"
+                />
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+        <div className="px-6 pt-6 lg:px-8">
+          <div>
+            <nav
+              className="flex h-9 items-center justify-between"
+              aria-label="Global"
+            >
+              <div
+                className="flex lg:min-w-0 lg:flex-1"
+                aria-label="Global"
+              >
                 <a
                   href="#"
-                  className="font-medium text-indigo-600 hover:text-indigo-500"
+                  className="-m-1.5 p-1.5"
                 >
-                  start your 14-day free trial
+                  <span className="sr-only">Your Company</span>
+                  <img
+                    className="h-8"
+                    src="https://img.logoipsum.com/288.svg"
+                    alt=""
+                  />
                 </a>
-              </p>
-            </div>
-            <form
-              className="mt-8 space-y-6"
-              action="#"
-              method="POST"
-            >
-              <input
-                type="hidden"
-                name="remember"
-                defaultValue="true"
-              />
-              <div className="-space-y-px rounded-md shadow-sm">
-                <div>
-                  <label
-                    htmlFor="email-address"
-                    className="sr-only"
-                  >
-                    Email address
-                  </label>
-                  <input
-                    id="email-address"
-                    name="email"
-                    type="email"
-                    autoComplete="email"
-                    required
-                    className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                    placeholder="Email address"
-                  />
-                </div>
-                <div>
-                  <label
-                    htmlFor="password"
-                    className="sr-only"
-                  >
-                    Password
-                  </label>
-                  <input
-                    id="password"
-                    name="password"
-                    type="password"
-                    autoComplete="current-password"
-                    required
-                    className="relative block w-full appearance-none rounded-none rounded-b-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                    placeholder="Password"
-                  />
-                </div>
               </div>
-
-              <div className="flex items-center justify-between">
-                <div className="flex items-center">
-                  <input
-                    id="remember-me"
-                    name="remember-me"
-                    type="checkbox"
-                    className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                  />
-                  <label
-                    htmlFor="remember-me"
-                    className="ml-2 block text-sm text-gray-900"
-                  >
-                    Remember me
-                  </label>
-                </div>
-
-                <div className="text-sm">
-                  <a
-                    href="#"
-                    className="font-medium text-indigo-600 hover:text-indigo-500"
-                  >
-                    Forgot your password?
-                  </a>
-                </div>
-              </div>
-
-              <div>
+              <div className="flex lg:hidden">
                 <button
-                  type="submit"
-                  className="group relative flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                  onClick={signInWithEmail}
+                  type="button"
+                  className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700"
+                  onClick={() => setMobileMenuOpen(true)}
                 >
-                  <span className="absolute inset-y-0 left-0 flex items-center pl-3">
-                    <LockClosedIcon
-                      className="h-5 w-5 text-indigo-500 group-hover:text-indigo-400"
-                      aria-hidden="true"
-                    />
-                  </span>
-                  Sign in
+                  <span className="sr-only">Open main menu</span>
+                  <Bars3Icon
+                    className="h-6 w-6"
+                    aria-hidden="true"
+                  />
                 </button>
               </div>
-            </form>
+              <div className="hidden lg:flex lg:min-w-0 lg:flex-1 lg:justify-center lg:gap-x-12">
+                {navigation.map((item) => (
+                  <a
+                    key={item.name}
+                    href={item.href}
+                    className="font-semibold text-gray-900 hover:text-gray-900"
+                  >
+                    {item.name}
+                  </a>
+                ))}
+              </div>
+              <div className="hidden lg:flex lg:min-w-0 lg:flex-1 lg:justify-end">
+                <a
+                  href="/login"
+                  className="inline-block rounded-lg px-3 py-1.5 text-sm font-semibold leading-6 text-gray-900 shadow-sm ring-1 ring-gray-900/10 hover:ring-gray-900/20"
+                >
+                  Log in
+                </a>
+              </div>
+            </nav>
+            <Dialog
+              as="div"
+              open={mobileMenuOpen}
+              onClose={setMobileMenuOpen}
+            >
+              <Dialog.Panel
+                //! can't figure out what this event was supposed to do
+                // onFocus="true"
+                className="fixed inset-0 z-10 overflow-y-auto bg-white px-6 py-6 lg:hidden"
+              >
+                <div className="flex h-9 items-center justify-between">
+                  <div className="flex">
+                    <a
+                      href="#"
+                      className="-m-1.5 p-1.5"
+                    >
+                      <span className="sr-only">Your Company</span>
+                      <img
+                        className="h-8"
+                        src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+                        alt=""
+                      />
+                    </a>
+                  </div>
+                  <div className="flex">
+                    <button
+                      type="button"
+                      className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700"
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      <span className="sr-only">Close menu</span>
+                      <XMarkIcon
+                        className="h-6 w-6"
+                        aria-hidden="true"
+                      />
+                    </button>
+                  </div>
+                </div>
+                <div className="mt-6 flow-root">
+                  <div className="-my-6 divide-y divide-gray-500/10">
+                    <div className="space-y-2 py-6">
+                      {navigation.map((item) => (
+                        <a
+                          key={item.name}
+                          href={item.href}
+                          className="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-400/10"
+                        >
+                          {item.name}
+                        </a>
+                      ))}
+                    </div>
+                    <div className="py-6">
+                      <a
+                        href="#"
+                        className="-mx-3 block rounded-lg py-2.5 px-3 text-base font-semibold leading-6 text-gray-900 hover:bg-gray-400/10"
+                      >
+                        Log in
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </Dialog.Panel>
+            </Dialog>
           </div>
         </div>
-      </>
+        <main>
+          <div className="relative px-6 lg:px-8">
+            <div className="mx-auto max-w-3xl pt-20 pb-32 sm:pt-48 sm:pb-40">
+              <div>
+                <div className="hidden sm:mb-8 sm:flex sm:justify-center">
+                  <div className="relative overflow-hidden rounded-full py-1.5 px-4 text-sm leading-6 ring-1 ring-gray-900/10 hover:ring-gray-900/20">
+                    <span className="text-gray-600">
+                      Announcing our next round of funding.{" "}
+                      <a
+                        href="#"
+                        className="font-semibold text-indigo-600"
+                      >
+                        <span
+                          className="absolute inset-0"
+                          aria-hidden="true"
+                        />
+                        Read more <span aria-hidden="true">&rarr;</span>
+                      </a>
+                    </span>
+                  </div>
+                </div>
+                <div>
+                  <h1 className="text-4xl font-bold tracking-tight sm:text-center sm:text-6xl">
+                    Data to enrich your online business
+                  </h1>
+                  <p className="mt-6 text-lg leading-8 text-gray-600 sm:text-center">
+                    Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure
+                    qui lorem cupidatat commodo. Elit sunt amet fugiat veniam
+                    occaecat fugiat aliqua.
+                  </p>
+                  <div className="mt-8 flex gap-x-4 sm:justify-center">
+                    <a
+                      href="#"
+                      className="inline-block rounded-lg bg-indigo-600 px-4 py-1.5 text-base font-semibold leading-7 text-white shadow-sm ring-1 ring-indigo-600 hover:bg-indigo-700 hover:ring-indigo-700"
+                    >
+                      Get started
+                      <span
+                        className="text-indigo-200"
+                        aria-hidden="true"
+                      >
+                        &rarr;
+                      </span>
+                    </a>
+                    <a
+                      href="#"
+                      className="inline-block rounded-lg px-4 py-1.5 text-base font-semibold leading-7 text-gray-900 ring-1 ring-gray-900/10 hover:ring-gray-900/20"
+                    >
+                      Live demo
+                      <span
+                        className="text-gray-400"
+                        aria-hidden="true"
+                      >
+                        &rarr;
+                      </span>
+                    </a>
+                  </div>
+                </div>
+                <div className="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]">
+                  <svg
+                    className="relative left-[calc(50%+3rem)] h-[21.1875rem] max-w-none -translate-x-1/2 sm:left-[calc(50%+36rem)] sm:h-[42.375rem]"
+                    viewBox="0 0 1155 678"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      fill="url(#ecb5b0c9-546c-4772-8c71-4d3f06d544bc)"
+                      fillOpacity=".3"
+                      d="M317.219 518.975L203.852 678 0 438.341l317.219 80.634 204.172-286.402c1.307 132.337 45.083 346.658 209.733 145.248C936.936 126.058 882.053-94.234 1031.02 41.331c119.18 108.451 130.68 295.337 121.53 375.223L855 299l21.173 362.054-558.954-142.079z"
+                    />
+                    <defs>
+                      <linearGradient
+                        id="ecb5b0c9-546c-4772-8c71-4d3f06d544bc"
+                        x1="1155.49"
+                        x2="-78.208"
+                        y1=".177"
+                        y2="474.645"
+                        gradientUnits="userSpaceOnUse"
+                      >
+                        <stop stopColor="#9089FC" />
+                        <stop
+                          offset={1}
+                          stopColor="#FF80B5"
+                        />
+                      </linearGradient>
+                    </defs>
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
     </div>
   );
 };
